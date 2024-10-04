@@ -250,7 +250,7 @@ export default function App() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="dateToRepay">Date to Repay</Label>
+                    <Label htmlFor="dateToRepay">Repay Date</Label>
                     <Input id="dateToRepay" type="date" required />
                   </div>
                   <Button
@@ -269,71 +269,73 @@ export default function App() {
                   All Loans
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-4xl">
+              <DialogContent className="max-w-[90vw] w-full max-h-[90vh] overflow-hidden flex flex-col">
                 <DialogHeader>
                   <DialogTitle>All Loans</DialogTitle>
                 </DialogHeader>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead
-                        onClick={() => sortLoans("borrower")}
-                        className="cursor-pointer"
-                      >
-                        Borrower
-                      </TableHead>
-                      <TableHead
-                        onClick={() => sortLoans("amount")}
-                        className="cursor-pointer"
-                      >
-                        Amount
-                      </TableHead>
-                      <TableHead
-                        onClick={() => sortLoans("dateTaken")}
-                        className="cursor-pointer"
-                      >
-                        Date Taken
-                      </TableHead>
-                      <TableHead
-                        onClick={() => sortLoans("dateToRepay")}
-                        className="cursor-pointer"
-                      >
-                        Date to Repay
-                      </TableHead>
-                      <TableHead>Action</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {getSortedLoans().map((loan) => (
-                      <TableRow key={loan.id}>
-                        <TableCell>{loan.borrower}</TableCell>
-                        <TableCell>
-                          {currencies[currencyIndex]}
-                          {loan.amount.toFixed(2)}
-                        </TableCell>
-                        <TableCell>{loan.dateTaken}</TableCell>
-                        <TableCell>{loan.dateToRepay}</TableCell>
-                        <TableCell>
-                          {loan.repaid ? (
-                            <Button
-                              disabled
-                              className="bg-gray-400 text-gray-600 cursor-not-allowed"
-                            >
-                              Paid
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={() => repayLoan(loan.id)}
-                              className="bg-amber-800 hover:bg-amber-900 text-white"
-                            >
-                              Repay
-                            </Button>
-                          )}
-                        </TableCell>
+                <div className="overflow-auto flex-grow">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead
+                          onClick={() => sortLoans("borrower")}
+                          className="cursor-pointer"
+                        >
+                          Borrower
+                        </TableHead>
+                        <TableHead
+                          onClick={() => sortLoans("amount")}
+                          className="cursor-pointer"
+                        >
+                          Amount
+                        </TableHead>
+                        <TableHead
+                          onClick={() => sortLoans("dateTaken")}
+                          className="cursor-pointer"
+                        >
+                          Date Taken
+                        </TableHead>
+                        <TableHead
+                          onClick={() => sortLoans("dateToRepay")}
+                          className="cursor-pointer"
+                        >
+                          Repay Date
+                        </TableHead>
+                        <TableHead>Action</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {getSortedLoans().map((loan) => (
+                        <TableRow key={loan.id}>
+                          <TableCell>{loan.borrower}</TableCell>
+                          <TableCell>
+                            {currencies[currencyIndex]}
+                            {loan.amount.toFixed(2)}
+                          </TableCell>
+                          <TableCell>{loan.dateTaken}</TableCell>
+                          <TableCell>{loan.dateToRepay}</TableCell>
+                          <TableCell>
+                            {loan.repaid ? (
+                              <Button
+                                disabled
+                                className="bg-gray-400 text-gray-600 cursor-not-allowed"
+                              >
+                                Paid
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={() => repayLoan(loan.id)}
+                                className="bg-amber-800 hover:bg-amber-900 text-white"
+                              >
+                                Repay
+                              </Button>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </DialogContent>
             </Dialog>
           </CardFooter>
